@@ -1,11 +1,10 @@
-import { useState } from "react";
-
 import "./App.css";
+import TradePort from "./components/TradePort/TradePort";
 
 function App() {
   return (
     <>
-      <p>philbin corp</p>
+      <TradePort />
     </>
   );
 }
