@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import styled from "styled-components";
 import {
+  kTradeAssistLabels,
   kTradeDirectoryLabels,
   kTradeMakerLabels,
   kTradeSignalsLabels,
@@ -71,7 +72,7 @@ function TradePort() {
           {[
             { title: "Trade Directory", list: kTradeDirectoryLabels },
             { title: "Trade Signals", list: kTradeSignalsLabels },
-            { title: "Trade Assist", list: kTradeDirectoryLabels },
+            { title: "Trade Assist", list: kTradeAssistLabels },
           ].map((entry) => {
             return (
               <>
@@ -104,6 +105,8 @@ function TradePort() {
 const StyledBottomColumn = styled.div`
   padding: 5px;
   max-width: 250px;
+  display: flex;
+  flex-direction: column;
 
   h3 {
     color: blue;
@@ -114,6 +117,7 @@ const StyledBottomColumn = styled.div`
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     gap: 0.5rem;
+    flex: 1;
     /* height: 100%; */
   }
 

@@ -63,3 +63,22 @@ export const kTradeSignalsLabels: IconInfo[] = [
     text: "news groups",
   },
 ];
+
+export const kTradeAssistLabels: IconInfo[] = [
+  {
+    imgUrl: "tradeExpert.png",
+    text: "trade expert",
+  },
+  {
+    imgUrl: "tradeQA.png",
+    text: "trade Q & A",
+  },
+  {
+    imgUrl: "exportAssistance.png",
+    text: "export assistance",
+  },
+  {
+    imgUrl: "serviceCenters.png",
+    text: "service centers",
+  },
+];
