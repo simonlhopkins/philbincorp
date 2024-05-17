@@ -204,6 +204,7 @@ const StyledTradePortWrapper = styled.div`
   height: 100svh;
   font-family: "Times New Roman", Times, serif;
   display: flex;
+  justify-content: center;
 
   .PhilbinText {
     font-weight: bold;
