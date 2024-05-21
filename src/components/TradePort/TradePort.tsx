@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import styled from "styled-components";
+import Marquee from "./Marquee";
 import {
   kTradeAssistLabels,
   kTradeDirectoryLabels,
@@ -10,6 +11,7 @@ import {
 function TradePort() {
   const fartRef = useRef<HTMLAudioElement>(null);
   const playFart = () => {
+    return;
     const audio = fartRef.current!;
     if (audio.paused) {
       audio.play();
@@ -22,10 +24,12 @@ function TradePort() {
     <StyledTradePortWrapper>
       <div id="logoWrapper"></div>
       <audio ref={fartRef} src="fart.mp3"></audio>
+
       <div id="mainArea">
         <h1>
           Welcome to <span className="PhilbinText">Philbin Corp™</span>
         </h1>
+        <Marquee />
         <p>the premier international trade website on the internet</p>
         <p>
           There is no fee to use{" "}
@@ -204,7 +208,7 @@ const StyledTradeMaker = styled.div`
 `;
 
 const StyledTradePortWrapper = styled.div`
-  width: 100%;
+  max-width: 100%;
   height: 100svh;
   font-family: "Times New Roman", Times, serif;
   display: flex;
@@ -245,6 +249,8 @@ const StyledTradePortWrapper = styled.div`
     display: flex;
     /* justify-content: center; */
     flex-direction: column;
+    overflow-x: hidden;
+    /* max-width: 100%; */
   }
 
   button,
