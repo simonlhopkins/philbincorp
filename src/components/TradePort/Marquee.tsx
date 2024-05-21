@@ -5,6 +5,7 @@ const kNumRepeats = 30;
 
 function Marquee() {
   const inside = [];
+
   for (let i = 0; i < kNumRepeats; i++) {
     inside.push(
       <div className="inside">
@@ -29,8 +30,8 @@ const StyledMarquee = styled.div`
     font-size: 2rem;
   }
   img {
-    height: 2rem;
-    width: auto;
+    height: 70px;
+    width: 220px;
   }
   width: 100%;
   background-color: blue;
