@@ -1,14 +1,14 @@
 import styled from "styled-components";
 const kText = "Philbin Corp™";
 
-const kNumRepeats = 30;
+const kNumRepeats = 20;
 
 function Marquee() {
   const inside = [];
 
   for (let i = 0; i < kNumRepeats; i++) {
     inside.push(
-      <div className="inside">
+      <div className="inside" key={i}>
         <p>{kText}</p>
         <img src="/gifs/Bemvindo1.gif"></img>
       </div>

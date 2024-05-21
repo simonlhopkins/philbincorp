@@ -1,28 +1,34 @@
 interface IconInfo {
   imgUrl: string;
   text: string;
+  url?: string;
 }
 
 export const kTradeMakerLabels: IconInfo[] = [
   {
     imgUrl: "howToExport.png",
     text: "how to export",
+    url: "/howToExport",
   },
   {
     imgUrl: "exportPlanning.png",
     text: "export planning",
+    url: "/exportPlanning",
   },
   {
     imgUrl: "findingBuyers.png",
     text: "finding buyers",
+    url: "/findingBuyers",
   },
   {
     imgUrl: "movingTheGoods.png",
     text: "moving the goods",
+    url: "/movingTheGoods",
   },
   {
     imgUrl: "obtainingFinancing.png",
     text: "obtaining financing",
+    url: "/obtainingFinancing",
   },
 ];
 

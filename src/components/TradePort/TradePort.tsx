@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Marquee from "./Marquee";
 import {
@@ -10,6 +11,7 @@ import {
 
 function TradePort() {
   const fartRef = useRef<HTMLAudioElement>(null);
+  const navigate = useNavigate();
   const playFart = () => {
     return;
     const audio = fartRef.current!;
@@ -55,11 +57,15 @@ function TradePort() {
         <StyledTradeMaker>
           <h3>Trade Maker</h3>
           <div className="metalContainer" id="iconsParent">
-            {kTradeMakerLabels.map(({ imgUrl, text }) => {
+            {kTradeMakerLabels.map(({ imgUrl, text, url }) => {
               return (
                 <div
                   className="_90sBorder iconWrapper"
+                  key={text}
                   onClick={() => {
+                    if (url) {
+                      navigate(url);
+                    }
                     playFart();
                   }}
                 >
@@ -79,26 +85,26 @@ function TradePort() {
             { title: "Trade Assist", list: kTradeAssistLabels },
           ].map((entry) => {
             return (
-              <>
-                <StyledBottomColumn>
-                  <h3>{entry!.title}</h3>
-                  <div
-                    className="metalContainer columnWrapper"
-                    onClick={() => {
-                      playFart();
-                    }}
-                  >
-                    {entry!.list.map(({ imgUrl, text }) => {
-                      return (
-                        <div className="entry _90sBorder">
-                          <img src={`/icons/${imgUrl}`}></img>
-                          <p>{text}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </StyledBottomColumn>
-              </>
+              <StyledBottomColumn key={entry.title}>
+                <h3>{entry!.title}</h3>
+                <div className="metalContainer columnWrapper">
+                  {entry!.list.map(({ imgUrl, text }) => {
+                    return (
+                      <div
+                        key={text}
+                        className="entry _90sBorder"
+                        onClick={() => {
+                          navigate(`/${text.replaceAll(" ", "")}`);
+                          playFart();
+                        }}
+                      >
+                        <img src={`/icons/${imgUrl}`}></img>
+                        <p>{text}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </StyledBottomColumn>
             );
           })}
         </StyledBottomColumns>
