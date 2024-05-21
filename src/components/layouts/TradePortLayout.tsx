@@ -5,20 +5,23 @@ import styled from "styled-components";
 function TradePortLayout() {
   const [mouseOver, setMouseOver] = useState(false);
   const headerRef = useRef<HTMLHeadingElement>(null);
+  const spin = () => {
+    const header = headerRef.current!;
+    header.animate(
+      [
+        { transform: "rotate(0deg)" }, // Keyframe 1: Initial state
+        { transform: "rotate(360deg)" }, // Keyframe 2: Final state
+      ],
+      {
+        duration: 500, // Animation duration in milliseconds
+        iterations: 1, // Number of times the animation should repeat
+      }
+    );
+  };
   useEffect(() => {
     console.log(mouseOver);
     if (mouseOver) {
-      const header = headerRef.current!;
-      header.animate(
-        [
-          { transform: "rotate(0deg)" }, // Keyframe 1: Initial state
-          { transform: "rotate(360deg)" }, // Keyframe 2: Final state
-        ],
-        {
-          duration: 500, // Animation duration in milliseconds
-          iterations: 1, // Number of times the animation should repeat
-        }
-      );
+      spin();
     }
   }, [mouseOver]);
   return (
@@ -30,6 +33,9 @@ function TradePortLayout() {
         }}
         onMouseLeave={() => {
           setMouseOver(false);
+        }}
+        onClick={() => {
+          spin();
         }}
       >
         <img id="logo" src="philbinLogo.png"></img>
