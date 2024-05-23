@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Marquee from "./Marquee";
 import {
@@ -89,19 +89,20 @@ function TradePort() {
               <StyledBottomColumn key={entry.title}>
                 <h3>{entry!.title}</h3>
                 <div className="metalContainer columnWrapper">
-                  {entry!.list.map(({ imgUrl, text }) => {
+                  {entry!.list.map(({ imgUrl, text, url }) => {
                     return (
-                      <div
+                      <Link
                         key={text}
                         className="entry _90sBorder"
                         onClick={() => {
-                          navigate(`/${text.replaceAll(" ", "")}`);
                           playFart();
                         }}
+                        to={url || `${text.replaceAll(" ", "")}`}
+                        target={url ? "_blank" : "_self"}
                       >
                         <img src={`/icons/${imgUrl}`}></img>
                         <p>{text}</p>
-                      </div>
+                      </Link>
                     );
                   })}
                 </div>

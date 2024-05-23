@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 function TradePortLayout() {
@@ -26,24 +26,26 @@ function TradePortLayout() {
   }, [mouseOver]);
   return (
     <StyledTradePortLayout>
-      <div
-        id="header"
-        onMouseOver={() => {
-          setMouseOver(true);
-        }}
-        onMouseLeave={() => {
-          setMouseOver(false);
-        }}
-        onClick={() => {
-          spin();
-        }}
-      >
-        <img id="logo" src="/philbinLogo.png"></img>
-        <div>
-          {/* <img src="gifs/money.gif"></img> */}
-          <h1 ref={headerRef}>Philban Corp</h1>
+      <Link to={"/"}>
+        <div
+          id="header"
+          onMouseOver={() => {
+            setMouseOver(true);
+          }}
+          onMouseLeave={() => {
+            setMouseOver(false);
+          }}
+          onClick={() => {
+            spin();
+          }}
+        >
+          <img id="logo" src="/philbinLogo.png"></img>
+          <div>
+            {/* <img src="gifs/money.gif"></img> */}
+            <h1 ref={headerRef}>Philban Corp</h1>
+          </div>
         </div>
-      </div>
+      </Link>
       <Outlet />
     </StyledTradePortLayout>
   );
@@ -57,7 +59,7 @@ const StyledTradePortLayout = styled.div`
     justify-content: space-between;
     background-image: url("/greenmesh.gif");
     #logo {
-      width: 200px;
+      width: 100px;
       height: auto;
     }
     h1 {

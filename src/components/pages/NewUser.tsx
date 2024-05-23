@@ -25,17 +25,19 @@ function NewUserPage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [aspectRatio, setAspectRatio] = useState(1);
   const [photoURLs, setPhotoURLs] = useState<string[]>([]);
-  const initUserMedia = () => {
+
+  useEffect(() => {
     const constraints = {
       audio: false,
       video: true,
       // video: { width: 1280, height: 720 },
     };
     const video = videoRef.current!;
-
+    let mediaStream: MediaStream | null;
     navigator.mediaDevices
       .getUserMedia(constraints)
-      .then((mediaStream) => {
+      .then((_mediaStream) => {
+        mediaStream = _mediaStream;
         video.srcObject = mediaStream;
         video.onloadedmetadata = () => {
           video.play();
@@ -46,9 +48,16 @@ function NewUserPage() {
         // always check for errors at the end.
         console.error(`${err.name}: ${err.message}`);
       });
-  };
-  useEffect(() => {
-    initUserMedia();
+
+    return () => {
+      // video.pause();
+
+      if (mediaStream) {
+        console.log("stop");
+        mediaStream.getTracks().forEach((track) => track.stop());
+      }
+      video.src = "";
+    };
   }, []);
 
   useEffect(() => {
@@ -56,10 +65,18 @@ function NewUserPage() {
 
     const canvas = canvasRef.current!;
 
-    const ctx = canvas.getContext("2d")!;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true })!;
+    ctx.translate(canvas.width, 0);
+    ctx.imageSmoothingEnabled = false;
+    ctx.imageSmoothingQuality = "low";
+
     const drawFrame = () => {
       if (video.readyState == video.HAVE_ENOUGH_DATA) {
+        ctx.save();
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
         let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         // Apply the 90s filter to the image data
@@ -76,10 +93,6 @@ function NewUserPage() {
       canvas.width = kVideoWidth;
       canvas.height = kVideoWidth / newAspectRatio;
       canvas.style.aspectRatio = newAspectRatio.toString();
-      console.log(`aspect ratio ${canvas.style.aspectRatio} `);
-      console.log(`setting width ${canvas.width} and height ${canvas.height}`);
-
-      // canvas.style.aspectRatio = newAspectRatio.toString();
       intervalID = setInterval(drawFrame, (1 / kFramesPerSecond) * 1000);
     }
     return () => {
@@ -171,11 +184,10 @@ const StyledCanvasContainer = styled.div<{ $aspectRatio: number }>`
     width: 100%;
     height: auto;
     display: block;
-    transform: scaleX(-1);
   }
   canvas {
-    transform: scaleX(-1);
-    width: 500px;
+    /* transform: scaleX(-1); */
+    width: 700px;
     max-width: 100%;
     height: auto;
   }
@@ -186,7 +198,7 @@ const StyledNewUserPage = styled.div`
     display: none;
   }
   button {
-    font-size: 3rem;
+    font-size: 2rem;
     margin: 10px;
     position: absolute;
     bottom: 0;

@@ -34,12 +34,14 @@ export const kTradeMakerLabels: IconInfo[] = [
 
 export const kTradeDirectoryLabels: IconInfo[] = [
   {
-    imgUrl: "california.png",
-    text: "events in california",
+    imgUrl: "bac_exploded.png",
+    text: "spillway entrance",
+    url: "https://www.youtube.com/watch?v=ebqTchrrBkM&ab_channel=simonhopkins",
   },
   {
-    imgUrl: "tradeshows.png",
-    text: "tradeshows & missions",
+    imgUrl: "uglyman.png",
+    text: "ugly man fun plan",
+    url: "https://www.youtube.com/watch?v=gd9OKKUY5as&ab_channel=simonhopkins",
   },
   {
     imgUrl: "companySearch.png",
@@ -53,8 +55,9 @@ export const kTradeDirectoryLabels: IconInfo[] = [
 
 export const kTradeSignalsLabels: IconInfo[] = [
   {
-    imgUrl: "worldNews.png",
-    text: "world news",
+    imgUrl: "coolComputer.png",
+    text: "sample pad",
+    url: "https://madeonwebsitecopy.netlify.app/",
   },
   {
     imgUrl: "hallOfFame.png",
