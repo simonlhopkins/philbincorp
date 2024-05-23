@@ -73,8 +73,10 @@ function NewUserPage() {
     if (isLoaded) {
       const newAspectRatio = video.videoWidth / video.videoHeight;
       setAspectRatio(newAspectRatio);
+      console.log("setting width and height");
       canvas.width = kVideoWidth;
       canvas.height = kVideoWidth * newAspectRatio;
+      // canvas.style.aspectRatio = newAspectRatio.toString();
       intervalID = setInterval(drawFrame, (1 / kFramesPerSecond) * 1000);
     }
     return () => {
@@ -151,7 +153,6 @@ const StyledCanvasContainer = styled.div<{ $aspectRatio: number }>`
     right: 0px;
     top: 0px;
     width: 40%;
-    aspect-ratio: ${(props) => 1 / props.$aspectRatio};
     > div {
       width: 100%;
       height: 100%;
@@ -171,7 +172,6 @@ const StyledCanvasContainer = styled.div<{ $aspectRatio: number }>`
   }
   canvas {
     transform: scaleX(-1);
-    aspect-ratio: ${(props) => 1 / props.$aspectRatio};
     width: 500px;
     max-width: 100%;
     height: auto;
