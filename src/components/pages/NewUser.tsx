@@ -81,7 +81,7 @@ function NewUserPage() {
         clearInterval(intervalID);
       }
     };
-  }, [isLoaded, aspectRatio]);
+  }, [isLoaded]);
 
   return (
     <StyledNewUserPage>
