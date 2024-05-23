@@ -26,26 +26,26 @@ function TradePortLayout() {
   }, [mouseOver]);
   return (
     <StyledTradePortLayout>
-      <Link to={"/"}>
-        <div
-          id="header"
-          onMouseOver={() => {
-            setMouseOver(true);
-          }}
-          onMouseLeave={() => {
-            setMouseOver(false);
-          }}
-          onClick={() => {
-            spin();
-          }}
-        >
+      <div
+        id="header"
+        onMouseOver={() => {
+          setMouseOver(true);
+        }}
+        onMouseLeave={() => {
+          setMouseOver(false);
+        }}
+        onClick={() => {
+          spin();
+        }}
+      >
+        <Link to={"/"}>
           <img id="logo" src="/philbinLogo.png"></img>
-          <div>
-            {/* <img src="gifs/money.gif"></img> */}
-            <h1 ref={headerRef}>Philban Corp</h1>
-          </div>
+        </Link>
+        <div>
+          {/* <img src="gifs/money.gif"></img> */}
+          <h1 ref={headerRef}>Philban Corp</h1>
         </div>
-      </Link>
+      </div>
       <Outlet />
     </StyledTradePortLayout>
   );
