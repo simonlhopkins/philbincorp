@@ -73,9 +73,12 @@ function NewUserPage() {
     if (isLoaded) {
       const newAspectRatio = video.videoWidth / video.videoHeight;
       setAspectRatio(newAspectRatio);
-      console.log("setting width and height");
       canvas.width = kVideoWidth;
       canvas.height = kVideoWidth * newAspectRatio;
+      canvas.style.aspectRatio = (1 / newAspectRatio).toString();
+      console.log(`aspect ratio ${canvas.style.aspectRatio} `);
+      console.log(`setting width ${canvas.width} and height ${canvas.height}`);
+
       // canvas.style.aspectRatio = newAspectRatio.toString();
       intervalID = setInterval(drawFrame, (1 / kFramesPerSecond) * 1000);
     }
