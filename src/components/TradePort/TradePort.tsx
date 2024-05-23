@@ -48,6 +48,7 @@ function TradePort() {
           </button>
           <button
             onClick={() => {
+              navigate("/users/new");
               playFart();
             }}
           >

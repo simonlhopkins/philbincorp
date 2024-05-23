@@ -38,7 +38,7 @@ function TradePortLayout() {
           spin();
         }}
       >
-        <img id="logo" src="philbinLogo.png"></img>
+        <img id="logo" src="/philbinLogo.png"></img>
         <div>
           {/* <img src="gifs/money.gif"></img> */}
           <h1 ref={headerRef}>Philban Corp</h1>
