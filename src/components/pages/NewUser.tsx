@@ -150,7 +150,7 @@ const StyledCanvasContainer = styled.div<{ $aspectRatio: number }>`
     right: 0px;
     top: 0px;
     width: 40%;
-    /* aspect-ratio: ${(props) => 1 / props.$aspectRatio}; */
+    aspect-ratio: ${(props) => 1 / props.$aspectRatio};
     > div {
       width: 100%;
       height: 100%;
@@ -168,6 +168,13 @@ const StyledCanvasContainer = styled.div<{ $aspectRatio: number }>`
     display: block;
     transform: scaleX(-1);
   }
+  canvas {
+    transform: scaleX(-1);
+    aspect-ratio: ${(props) => 1 / props.$aspectRatio};
+    width: 500px;
+    max-width: 100%;
+    height: auto;
+  }
 `;
 
 const StyledNewUserPage = styled.div`
@@ -179,14 +186,6 @@ const StyledNewUserPage = styled.div`
     margin: 10px;
     position: absolute;
     bottom: 0;
-  }
-
-  canvas {
-    transform: scaleX(-1);
-    /* aspect-ratio: 16/9; */
-    width: 500px;
-    max-width: 100%;
-    height: auto;
   }
 `;
 
