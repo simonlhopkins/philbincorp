@@ -71,9 +71,10 @@ function NewUserPage() {
     };
     let intervalID: number | undefined;
     if (isLoaded) {
-      setAspectRatio(video.videoWidth / video.videoHeight);
+      const newAspectRatio = video.videoWidth / video.videoHeight;
+      setAspectRatio(newAspectRatio);
       canvas.width = kVideoWidth;
-      canvas.height = kVideoWidth * aspectRatio;
+      canvas.height = kVideoWidth * newAspectRatio;
       intervalID = setInterval(drawFrame, (1 / kFramesPerSecond) * 1000);
     }
     return () => {
