@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const kFramesPerSecond = 6;
+const kVideoWidth = 640 / 4;
 const apply90sFilter = (imageData: ImageData) => {
   const data = imageData.data;
   for (let i = 0; i < data.length; i += 4) {
@@ -22,12 +23,13 @@ function NewUserPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [aspectRatio, setAspectRatio] = useState(1);
   const [photoURLs, setPhotoURLs] = useState<string[]>([]);
-
-  useEffect(() => {
+  const initUserMedia = () => {
     const constraints = {
       audio: false,
-      video: { width: 1280, height: 720 },
+      video: true,
+      // video: { width: 1280, height: 720 },
     };
     const video = videoRef.current!;
 
@@ -44,14 +46,16 @@ function NewUserPage() {
         // always check for errors at the end.
         console.error(`${err.name}: ${err.message}`);
       });
+  };
+  useEffect(() => {
+    initUserMedia();
   }, []);
 
   useEffect(() => {
     const video = videoRef.current!;
 
     const canvas = canvasRef.current!;
-    canvas.width = 640;
-    canvas.height = 480;
+
     const ctx = canvas.getContext("2d")!;
     const drawFrame = () => {
       if (video.readyState == video.HAVE_ENOUGH_DATA) {
@@ -67,6 +71,9 @@ function NewUserPage() {
     };
     let intervalID: number | undefined;
     if (isLoaded) {
+      setAspectRatio(video.videoWidth / video.videoHeight);
+      canvas.width = kVideoWidth;
+      canvas.height = kVideoWidth * aspectRatio;
       intervalID = setInterval(drawFrame, (1 / kFramesPerSecond) * 1000);
     }
     return () => {
@@ -74,45 +81,112 @@ function NewUserPage() {
         clearInterval(intervalID);
       }
     };
-  }, [isLoaded]);
+  }, [isLoaded, aspectRatio]);
 
   return (
     <StyledNewUserPage>
-      new user
-      <video ref={videoRef}></video>
-      {!isLoaded && <p>loading</p>}
-      <canvas ref={canvasRef}></canvas>
-      {isLoaded && (
-        <button
-          onClick={() => {
-            const daraURL = canvasRef.current!.toDataURL("image/jpeg");
-            setPhotoURLs((prev) => [...prev, daraURL]);
-          }}
-        >
-          take jpeg
-        </button>
-      )}
-      {/* {photoURLs.map((url) => (
+      <video autoPlay playsInline ref={videoRef}></video>
+
+      <StyledCanvasContainer $aspectRatio={aspectRatio}>
+        {!isLoaded && <img src="/gifs/loading.gif"></img>}
+
+        <canvas ref={canvasRef}></canvas>
+        {isLoaded && (
+          <button
+            onClick={() => {
+              const daraURL = canvasRef.current!.toDataURL("image/jpeg");
+              setPhotoURLs((prev) => [...prev, daraURL]);
+            }}
+          >
+            take jpeg
+          </button>
+        )}
+        {/* {photoURLs.map((url) => (
         <img src={url}></img>
       ))} */}
-      {photoURLs.length > 0 && (
-        <img src={photoURLs[photoURLs.length - 1]}></img>
-      )}
+        {photoURLs.length > 0 && (
+          <div id="snapshotContainer">
+            <div>
+              <img src="/gifs/weedBorder.gif"></img>
+              <img id="snapshot" src={photoURLs[photoURLs.length - 1]}></img>
+              <img
+                src="/gifs/money.gif"
+                style={{
+                  left: "0",
+                  bottom: "0",
+                  width: "60px",
+                }}
+                className="decoration"
+              ></img>
+              <img
+                src="/gifs/skull.gif"
+                style={{
+                  right: "0",
+                  top: "0",
+                  width: "60px",
+                }}
+                className="decoration"
+              ></img>
+              <img src="/gifs/akadotbanner.gif"></img>
+            </div>
+          </div>
+        )}
+      </StyledCanvasContainer>
     </StyledNewUserPage>
   );
 }
+
+const StyledCanvasContainer = styled.div<{ $aspectRatio: number }>`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+  img {
+    max-width: 100%;
+  }
+  #snapshotContainer {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 40%;
+    /* aspect-ratio: ${(props) => 1 / props.$aspectRatio}; */
+    > div {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+  }
+  .decoration {
+    position: absolute;
+  }
+  #snapshot {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: scaleX(-1);
+  }
+`;
 
 const StyledNewUserPage = styled.div`
   video {
     display: none;
   }
+  button {
+    font-size: 3rem;
+    margin: 10px;
+    position: absolute;
+    bottom: 0;
+  }
 
-  canvas,
-  img {
+  canvas {
     transform: scaleX(-1);
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
     width: 500px;
     max-width: 100%;
+    height: auto;
   }
 `;
 

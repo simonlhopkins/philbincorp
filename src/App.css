@@ -10,3 +10,14 @@ body {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+button {
+  background-color: #c0c0c0; /* Gray background */
+  color: black; /* Black text */
+  border: 3px outset #fff; /* 3D effect border */
+
+  font-size: 14px; /* Small font size */
+  text-align: center; /* Centered text */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-decoration: none; /* No underline for text */
+}
