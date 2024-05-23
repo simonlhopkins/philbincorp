@@ -74,8 +74,8 @@ function NewUserPage() {
       const newAspectRatio = video.videoWidth / video.videoHeight;
       setAspectRatio(newAspectRatio);
       canvas.width = kVideoWidth;
-      canvas.height = kVideoWidth * newAspectRatio;
-      canvas.style.aspectRatio = (1 / newAspectRatio).toString();
+      canvas.height = kVideoWidth / newAspectRatio;
+      canvas.style.aspectRatio = newAspectRatio.toString();
       console.log(`aspect ratio ${canvas.style.aspectRatio} `);
       console.log(`setting width ${canvas.width} and height ${canvas.height}`);
 
